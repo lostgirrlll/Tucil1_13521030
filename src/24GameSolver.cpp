@@ -315,6 +315,52 @@ void printSolution(vector<string> hasil)
     cout << " --------------------------------------------------------------------------------------- " << endl;
 }
 
+void saveFile(vector<string> hasil)
+{
+    ofstream file;
+    string namaFile, namaPath, pilihan;
+    int number = 0;
+
+    cout << " \t" << "Apakah ingin menyimpan solusi? (y/n) : ";
+    cin >> pilihan;
+    while (pilihan != "y" && pilihan != "n") {
+        cout << " " << endl;
+        cout << " \t" << "Input salah, masukkan kembali (y/n) : ";
+        cin >> pilihan;
+    }
+    if (pilihan == "y") {
+        cout << " " << endl;
+        cout << " \t" << "Masukkan nama file: ";
+        cin >> namaFile;
+        namaPath = "../test/";
+        file.open(namaPath + namaFile + ".txt");
+        file << " ---------------------------------------" << endl;
+        file << "\t" << input1 << " " << input2 << " " << input3 << " " << input4 << endl;
+        file << " ---------------------------------------" << endl;
+        file << "\t" << solusi << " solusi ditemukan" << endl;
+        file << " ---------------------------------------" << endl;
+        if (solusi == 0) {
+            file << "\t" << "Tidak ada solusi" << endl;
+        }
+        else {
+            for (int i = 0; i < hasil.size(); i++) {
+                number++;
+                file << "\t" << number << ".  \t" << hasil[i] << endl;
+            }
+        }
+        file << " ---------------------------------------" << endl;
+        file.close();
+        cout << " " << endl;
+        cout << " \t" << "File berhasil disimpan" << endl;
+        cout << " --------------------------------------------------------------------------------------- " << endl;
+    }
+    else if (pilihan == "n") {
+        cout << " " << endl;
+        cout << " \t" << "Tidak ada file yang disimpan" << endl;
+        cout << " --------------------------------------------------------------------------------------- " << endl;
+    }
+}
+
 // MAIN PROGRAM
 int main() 
 {    
@@ -356,5 +402,7 @@ int main()
     cout << " " << endl;
     cout << " \t" << "Waktu eksekuksi : " << (float)(clock() - start)/CLOCKS_PER_SEC << " detik" << endl;
     cout << "  " << endl;
+
+    saveFile(hasil);
 
 }
