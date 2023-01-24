@@ -240,6 +240,15 @@ string sign(int op)
         return 0;
     }
 }
+bool checkDouble (vector<string> hasil, string temp)
+{
+    for (int i = 0; i < hasil.size(); i++) {
+        if (hasil[i] == temp) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void check24(float card1, float card2, float card3, float card4, vector<string> *hasil)
 {
@@ -253,26 +262,57 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
                 calculate = operation(operation(operation(card1, card2, op1), card3, op2), card4, op3);
                 if (calculate == 24) {
                     result = "((" + to_string((int)card1) + " " + sign(op1) + " " + to_string((int)card2) + ") " + sign(op2) + " " + to_string((int)card3) + ") " + sign(op3) + " " + to_string((int)card4) + " = " + to_string((int)calculate);
-                    solusi++;
+                    if (!checkDouble(*hasil, result)) {
+                        (*hasil).push_back(result);
+                        solusi++;
+                    }
                 }
                 calculate = operation(operation(card1, card2, op1), operation(card3, card4, op3), op2);
                 if (calculate == 24) {
                     result = "(" + to_string((int)card1) + " " + sign(op1) + " " + to_string((int)card2) + ") " + sign(op2) + " (" + to_string((int)card3) + sign(op3) + " " + to_string((int)card4) + ") = " + to_string((int)calculate);
-                    solusi++;
+                    if (!checkDouble(*hasil, result)) {
+                        (*hasil).push_back(result);
+                        solusi++;
+                    }
                 }
                 calculate = operation(card1, operation(operation(card2, card3, op2), card4, op3), op1);
                 if (calculate == 24) {
                     result = to_string((int)card1) + " " + sign(op1) + " ((" + to_string((int)card2) + sign(op2) + " " + to_string((int)card3) + ") " + sign(op3) + " " + to_string((int)card4) + ") = " + to_string((int)calculate);
-                    solusi++;
+                    if (!checkDouble(*hasil, result)) {
+                        (*hasil).push_back(result);
+                        solusi++;
+                    }
                 }
                 calculate = operation(operation(card1, operation(card2, card3, op2), op1), card4, op3);
                 if (calculate == 24) {
                     result = "(" + to_string((int)card1) + " " + sign(op1) + " (" + to_string((int)card2) + sign(op2) + " " + to_string((int)card3) + ")) " + sign(op3) + " " + to_string((int)card4) + " = " + to_string((int)calculate);
+                    if (!checkDouble(*hasil, result)) {
+                        (*hasil).push_back(result);
                         solusi++;
+                    }
                 }
             }
         }
     }
+}
+
+
+void printSolution(vector<string> hasil)
+{
+    int number = 0;
+    cout << " --------------------------------------------------------------------------------------- " << endl;
+    cout << "|\t" << solusi <<" solusi ditemukan   " << "\t\t\t\t\t\t\t\t|"<< endl;
+    cout << " --------------------------------------------------------------------------------------- " << endl;
+    if (solusi == 0) {
+        cout << "|\t" << "Tidak ada solusi                                                                |" << endl;
+    }
+    else {
+        for (int i = 0; i < hasil.size(); i++) {
+            number++;
+            cout << " \t" << number << ".\t" << hasil[i] << endl;
+        }
+    }
+    cout << " --------------------------------------------------------------------------------------- " << endl;
 }
 
 // MAIN PROGRAM
@@ -307,5 +347,7 @@ int main()
     check24(card4, card2, card3, card1, &hasil);
     check24(card4, card3, card1, card2, &hasil);
     check24(card4, card3, card2, card1, &hasil);
+
+    printSolution(hasil);
 
 }
