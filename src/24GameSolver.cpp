@@ -1,8 +1,8 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <time.h> 
-#include <fstream>
+#include <iostream> // input dan output
+#include <string>   // string
+#include <vector>   // vector
+#include <time.h>   // waktu
+#include <fstream>  // file
 
 using namespace std;
 
@@ -38,6 +38,7 @@ void intro()
 }
 
 float convertCardToFloat(string card)
+// Mengubah kartu dari string menjadi float
 {
     if (card == "A") {
         return 1;
@@ -84,6 +85,7 @@ float convertCardToFloat(string card)
 }
 
 string convertCardToString(int card)
+// Mengubah kartu dari integer menjadi string
 {
     if (card == 1) {
         return "A";
@@ -103,6 +105,7 @@ string convertCardToString(int card)
 }
 
 void intToStr(int num, string &str)
+// Mengubah int menjadi string
 {
     if (num == 1) {
         str = "A";
@@ -122,6 +125,7 @@ void intToStr(int num, string &str)
 }
 
 bool isCardValid(string card)
+// Mengecek apakah kartu valid
 {
     if (card == "A" || card == "J" || card == "Q" || card == "K" || card == "2" || card == "3" || card == "4" || card == "5" || card == "6" || card == "7" || card == "8" || card == "9" || card == "10") {
         return true;
@@ -132,6 +136,7 @@ bool isCardValid(string card)
 }
 
 void randomCard()
+// Membuat 4 kartu secara acak
 {
     int c1, c2, c3, c4;
     srand(time(NULL));
@@ -153,9 +158,11 @@ void randomCard()
 }
 
 void cardInput()
+// Membaca keempat kartu untuk permainian 24
 {
     string pilihan;
 
+    //pilih input dari keyboard atau random
     cout << "  " << endl;
     cout << " \t" << "Pilih input dari keyboard atau random:" << endl;
     cout << " \t" << "1. Keyboard" << endl;
@@ -164,12 +171,14 @@ void cardInput()
     cout << " \t" << "Masukkan pilihan : ";
     cin >> pilihan;
 
+    // Mengecek apakah input valid
     while (pilihan != "1" && pilihan != "2") {
         cout << "  " << endl;
         cout << " \t" << "Input tidak valid. Masukkan pilihan (1/2): ";
         cin >> pilihan;
     }
 
+    // Input dari keyboard
     if (pilihan == "1") {
         cout << "  " << endl;
         cout << " \t" << "Masukkan 4 kartu: " << endl;
@@ -182,6 +191,7 @@ void cardInput()
         card3 = convertCardToFloat(input3);
         card4 = convertCardToFloat(input4);
 
+        // Mengecek apakah input kartu valid
         while (!isCardValid(input1) || !isCardValid(input2) || !isCardValid(input3) || !isCardValid(input4)) {
             cout << "  " << endl;
             cout << " \t" << "Kartu tidak valid. Masukkan kembali 4 kartu. " << endl;
@@ -198,12 +208,14 @@ void cardInput()
         cout << " --------------------------------------------------------------------------------------- " << endl;
         cout << "|\t" << "Kartu yang anda pilih adalah " << input1 << ", " << input2 << ", " << input3 << ", dan " << input4 << "\t\t\t\t\t|"<< endl;
     }
+    // Input random
     else if (pilihan == "2") {
         randomCard();
     }
 }
 
 float operation(float cardA, float cardB, int sign)
+// Menghitung operasi cardA dan cardB
 {
     if (sign == 1) {
         return cardA + cardB;
@@ -223,6 +235,7 @@ float operation(float cardA, float cardB, int sign)
 }
 
 string sign(int op)
+// Mengubah angka menjadi operator
 {
     if (op == 1) {
         return "+";
@@ -240,7 +253,9 @@ string sign(int op)
         return 0;
     }
 }
+
 bool checkDouble (vector<string> hasil, string temp)
+// Mengecek apakah hasil sudah ada di vector hasil
 {
     for (int i = 0; i < hasil.size(); i++) {
         if (hasil[i] == temp) {
@@ -251,6 +266,7 @@ bool checkDouble (vector<string> hasil, string temp)
 }
 
 void check24(float card1, float card2, float card3, float card4, vector<string> *hasil)
+// Mengecek apakah ada kombinasi kartu yang hasil perhitungannya 24
 {
     int op1, op2, op3;
     float calculate;
@@ -259,6 +275,7 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
     for (op1 = 1; op1 <= 4; op1++) {
         for (op2 = 1; op2 <= 4; op2++) {
             for (op3 = 1; op3 <= 4; op3++) {
+                // ((card1 op1 card2) op2 card3) op3 card4
                 calculate = operation(operation(operation(card1, card2, op1), card3, op2), card4, op3);
                 if (calculate == 24) {
                     result = "((" + to_string((int)card1) + " " + sign(op1) + " " + to_string((int)card2) + ") " + sign(op2) + " " + to_string((int)card3) + ") " + sign(op3) + " " + to_string((int)card4) + " = " + to_string((int)calculate);
@@ -267,6 +284,7 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
                         solusi++;
                     }
                 }
+                // (card1 op1 card2) op2 (card3 op3 card4)
                 calculate = operation(operation(card1, card2, op1), operation(card3, card4, op3), op2);
                 if (calculate == 24) {
                     result = "(" + to_string((int)card1) + " " + sign(op1) + " " + to_string((int)card2) + ") " + sign(op2) + " (" + to_string((int)card3) + sign(op3) + " " + to_string((int)card4) + ") = " + to_string((int)calculate);
@@ -275,6 +293,7 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
                         solusi++;
                     }
                 }
+                // card1 op1 ((card2 op2 card3) op3 card4)
                 calculate = operation(card1, operation(operation(card2, card3, op2), card4, op3), op1);
                 if (calculate == 24) {
                     result = to_string((int)card1) + " " + sign(op1) + " ((" + to_string((int)card2) + sign(op2) + " " + to_string((int)card3) + ") " + sign(op3) + " " + to_string((int)card4) + ") = " + to_string((int)calculate);
@@ -283,6 +302,7 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
                         solusi++;
                     }
                 }
+                // (card1 op1 (card2 op2 card3)) op3 card4
                 calculate = operation(operation(card1, operation(card2, card3, op2), op1), card4, op3);
                 if (calculate == 24) {
                     result = "(" + to_string((int)card1) + " " + sign(op1) + " (" + to_string((int)card2) + sign(op2) + " " + to_string((int)card3) + ")) " + sign(op3) + " " + to_string((int)card4) + " = " + to_string((int)calculate);
@@ -296,8 +316,8 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
     }
 }
 
-
 void printSolution(vector<string> hasil)
+// Menampilkan solusi
 {
     int number = 0;
     cout << " --------------------------------------------------------------------------------------- " << endl;
@@ -316,6 +336,7 @@ void printSolution(vector<string> hasil)
 }
 
 void saveFile(vector<string> hasil)
+// Menyimpan solusi ke file
 {
     ofstream file;
     string namaFile, namaPath, pilihan;
@@ -363,9 +384,9 @@ void saveFile(vector<string> hasil)
 
 // MAIN PROGRAM
 int main() 
-{    
+{
     vector<string> hasil;
-
+    
     intro();
     cardInput();
 
@@ -404,5 +425,4 @@ int main()
     cout << "  " << endl;
 
     saveFile(hasil);
-
 }
