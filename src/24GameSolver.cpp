@@ -192,7 +192,8 @@ void cardInput()
         card4 = convertCardToFloat(input4);
 
         // Mengecek apakah input kartu valid
-        while (!isCardValid(input1) || !isCardValid(input2) || !isCardValid(input3) || !isCardValid(input4)) {
+        while (!isCardValid(input1) || !isCardValid(input2) || 
+        !isCardValid(input3) || !isCardValid(input4)) {
             cout << "  " << endl;
             cout << " \t" << "Kartu tidak valid. Masukkan kembali 4 kartu. " << endl;
             cout << " \t" << "(angka 2-10 atau huruf A, J, Q, dan K)" << endl;
@@ -316,6 +317,35 @@ void check24(float card1, float card2, float card3, float card4, vector<string> 
     }
 }
 
+void cardPosition(float card1, float card2, float card3, float card4, vector<string> *hasil)
+// Mengecek semua kemungkinan dalam menyusun 4 kartu dengan posisi yang berbeda-beda
+{
+    check24(card1, card2, card3, card4, hasil);
+    check24(card1, card2, card4, card3, hasil);
+    check24(card1, card3, card2, card4, hasil);
+    check24(card1, card3, card4, card2, hasil);
+    check24(card1, card4, card2, card3, hasil);
+    check24(card1, card4, card3, card2, hasil);
+    check24(card2, card1, card3, card4, hasil);
+    check24(card2, card1, card4, card3, hasil);
+    check24(card2, card3, card1, card4, hasil);
+    check24(card2, card3, card4, card1, hasil);
+    check24(card2, card4, card1, card3, hasil);
+    check24(card2, card4, card3, card1, hasil);
+    check24(card3, card1, card2, card4, hasil);
+    check24(card3, card1, card4, card2, hasil);
+    check24(card3, card2, card1, card4, hasil);
+    check24(card3, card2, card4, card1, hasil);
+    check24(card3, card4, card1, card2, hasil);
+    check24(card3, card4, card2, card1, hasil);
+    check24(card4, card1, card2, card3, hasil);
+    check24(card4, card1, card3, card2, hasil);
+    check24(card4, card2, card1, card3, hasil);
+    check24(card4, card2, card3, card1, hasil);
+    check24(card4, card3, card1, card2, hasil);
+    check24(card4, card3, card2, card1, hasil);
+}
+
 void printSolution(vector<string> hasil)
 // Menampilkan solusi
 {
@@ -351,10 +381,8 @@ void saveFile(vector<string> hasil)
     }
     if (pilihan == "y") {
         cout << " " << endl;
-        cout << " \t" << "Masukkan nama file: ";
-        cin >> namaFile;
         namaPath = "../test/";
-        file.open(namaPath + namaFile + ".txt");
+        file.open(namaPath + "solusi_" + input1 + "_" + input2 + "_" + input3 + "_" + input4 + ".txt");
         file << " ---------------------------------------" << endl;
         file << "\t" << input1 << " " << input2 << " " << input3 << " " << input4 << endl;
         file << " ---------------------------------------" << endl;
@@ -371,7 +399,6 @@ void saveFile(vector<string> hasil)
         }
         file << " ---------------------------------------" << endl;
         file.close();
-        cout << " " << endl;
         cout << " \t" << "File berhasil disimpan" << endl;
         cout << " --------------------------------------------------------------------------------------- " << endl;
     }
@@ -392,31 +419,7 @@ int main()
 
     clock_t start = clock();
 
-    check24(card1, card2, card3, card4, &hasil);
-    check24(card1, card2, card4, card3, &hasil);
-    check24(card1, card3, card2, card4, &hasil);
-    check24(card1, card3, card4, card2, &hasil);
-    check24(card1, card4, card2, card3, &hasil);
-    check24(card1, card4, card3, card2, &hasil);
-    check24(card2, card1, card3, card4, &hasil);
-    check24(card2, card1, card4, card3, &hasil);
-    check24(card2, card3, card1, card4, &hasil);
-    check24(card2, card3, card4, card1, &hasil);
-    check24(card2, card4, card1, card3, &hasil);
-    check24(card2, card4, card3, card1, &hasil);
-    check24(card3, card1, card2, card4, &hasil);
-    check24(card3, card1, card4, card2, &hasil);
-    check24(card3, card2, card1, card4, &hasil);
-    check24(card3, card2, card4, card1, &hasil);
-    check24(card3, card4, card1, card2, &hasil);
-    check24(card3, card4, card2, card1, &hasil);
-    check24(card4, card1, card2, card3, &hasil);
-    check24(card4, card1, card3, card2, &hasil);
-    check24(card4, card2, card1, card3, &hasil);
-    check24(card4, card2, card3, card1, &hasil);
-    check24(card4, card3, card1, card2, &hasil);
-    check24(card4, card3, card2, card1, &hasil);
-
+    cardPosition(card1, card2, card3, card4, &hasil);
     printSolution(hasil);
 
     double end = clock();
