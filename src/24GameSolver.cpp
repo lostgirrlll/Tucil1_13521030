@@ -416,7 +416,7 @@ int main()
     
     intro();
     cardInput();
-
+    
     clock_t start = clock();
 
     cardPosition(card1, card2, card3, card4, &hasil);
@@ -424,7 +424,7 @@ int main()
 
     double end = clock();
     cout << " " << endl;
-    cout << " \t" << "Waktu eksekuksi : " << (float)(clock() - start)/CLOCKS_PER_SEC << " detik" << endl;
+    cout << " \t" << "Waktu eksekuksi : " << (float)(clock() - start)/CLOCKS_PER_SEC << " detik" << endl;   // menghitung dan menampilkan waktu eksekusi
     cout << "  " << endl;
 
     saveFile(hasil);
