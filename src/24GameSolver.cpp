@@ -323,6 +323,8 @@ int main()
     intro();
     cardInput();
 
+    clock_t start = clock();
+
     check24(card1, card2, card3, card4, &hasil);
     check24(card1, card2, card4, card3, &hasil);
     check24(card1, card3, card2, card4, &hasil);
@@ -349,5 +351,10 @@ int main()
     check24(card4, card3, card2, card1, &hasil);
 
     printSolution(hasil);
+
+    double end = clock();
+    cout << " " << endl;
+    cout << " \t" << "Waktu eksekuksi : " << (float)(clock() - start)/CLOCKS_PER_SEC << " detik" << endl;
+    cout << "  " << endl;
 
 }
