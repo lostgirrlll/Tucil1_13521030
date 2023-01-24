@@ -14,6 +14,7 @@ Program ini dibuat untuk menemukan solusi dari permainan kartu 24 dengan menggun
 
 
 ## Struktur Program
+```
 Tucil1_13521030            
 ├─ bin                     
 │  └─ 24GameSolver.exe     
@@ -32,11 +33,12 @@ Tucil1_13521030
 │  ├─ solusi_J_Q_K_2.txt   
 │  └─ solusi_K_7_A_Q.txt   
 └─ README.md      
+```
 
 
 ## Teknologi yang Digunakan
 - C++
 
 
-## Author
+## Penulis
 13521030 - Jauza Lathifah Annassalafi
