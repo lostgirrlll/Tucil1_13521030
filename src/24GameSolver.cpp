@@ -9,6 +9,7 @@ using namespace std;
 // GLOBAL VARIABLE
 float card1, card2, card3, card4;
 string input1, input2, input3, input4;
+int solusi = 0;
 
 // FUNCTION
 void intro()
@@ -202,9 +203,109 @@ void cardInput()
     }
 }
 
+float operation(float cardA, float cardB, int sign)
+{
+    if (sign == 1) {
+        return cardA + cardB;
+    }
+    else if (sign == 2) {
+        return cardA - cardB;
+    }
+    else if (sign == 3) {
+        return cardA * cardB;
+    }
+    else if (sign == 4) {
+        return cardA / cardB;
+    }
+    else {
+        return 0;
+    }
+}
+
+string sign(int op)
+{
+    if (op == 1) {
+        return "+";
+    }
+    else if (op == 2) {
+        return "-";
+    }
+    else if (op == 3) {
+        return "*";
+    }
+    else if (op == 4) {
+        return "/";
+    }
+    else {
+        return 0;
+    }
+}
+
+void check24(float card1, float card2, float card3, float card4, vector<string> *hasil)
+{
+    int op1, op2, op3;
+    float calculate;
+    string result = "";
+
+    for (op1 = 1; op1 <= 4; op1++) {
+        for (op2 = 1; op2 <= 4; op2++) {
+            for (op3 = 1; op3 <= 4; op3++) {
+                calculate = operation(operation(operation(card1, card2, op1), card3, op2), card4, op3);
+                if (calculate == 24) {
+                    result = "((" + to_string((int)card1) + " " + sign(op1) + " " + to_string((int)card2) + ") " + sign(op2) + " " + to_string((int)card3) + ") " + sign(op3) + " " + to_string((int)card4) + " = " + to_string((int)calculate);
+                    solusi++;
+                }
+                calculate = operation(operation(card1, card2, op1), operation(card3, card4, op3), op2);
+                if (calculate == 24) {
+                    result = "(" + to_string((int)card1) + " " + sign(op1) + " " + to_string((int)card2) + ") " + sign(op2) + " (" + to_string((int)card3) + sign(op3) + " " + to_string((int)card4) + ") = " + to_string((int)calculate);
+                    solusi++;
+                }
+                calculate = operation(card1, operation(operation(card2, card3, op2), card4, op3), op1);
+                if (calculate == 24) {
+                    result = to_string((int)card1) + " " + sign(op1) + " ((" + to_string((int)card2) + sign(op2) + " " + to_string((int)card3) + ") " + sign(op3) + " " + to_string((int)card4) + ") = " + to_string((int)calculate);
+                    solusi++;
+                }
+                calculate = operation(operation(card1, operation(card2, card3, op2), op1), card4, op3);
+                if (calculate == 24) {
+                    result = "(" + to_string((int)card1) + " " + sign(op1) + " (" + to_string((int)card2) + sign(op2) + " " + to_string((int)card3) + ")) " + sign(op3) + " " + to_string((int)card4) + " = " + to_string((int)calculate);
+                        solusi++;
+                }
+            }
+        }
+    }
+}
+
 // MAIN PROGRAM
 int main() 
 {    
+    vector<string> hasil;
+
     intro();
     cardInput();
+
+    check24(card1, card2, card3, card4, &hasil);
+    check24(card1, card2, card4, card3, &hasil);
+    check24(card1, card3, card2, card4, &hasil);
+    check24(card1, card3, card4, card2, &hasil);
+    check24(card1, card4, card2, card3, &hasil);
+    check24(card1, card4, card3, card2, &hasil);
+    check24(card2, card1, card3, card4, &hasil);
+    check24(card2, card1, card4, card3, &hasil);
+    check24(card2, card3, card1, card4, &hasil);
+    check24(card2, card3, card4, card1, &hasil);
+    check24(card2, card4, card1, card3, &hasil);
+    check24(card2, card4, card3, card1, &hasil);
+    check24(card3, card1, card2, card4, &hasil);
+    check24(card3, card1, card4, card2, &hasil);
+    check24(card3, card2, card1, card4, &hasil);
+    check24(card3, card2, card4, card1, &hasil);
+    check24(card3, card4, card1, card2, &hasil);
+    check24(card3, card4, card2, card1, &hasil);
+    check24(card4, card1, card2, card3, &hasil);
+    check24(card4, card1, card3, card2, &hasil);
+    check24(card4, card2, card1, card3, &hasil);
+    check24(card4, card2, card3, card1, &hasil);
+    check24(card4, card3, card1, card2, &hasil);
+    check24(card4, card3, card2, card1, &hasil);
+
 }
