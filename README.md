@@ -15,24 +15,25 @@ Program ini dibuat untuk menemukan solusi dari permainan kartu 24 dengan menggun
 
 ## Struktur Program
 ```
-Tucil1_13521030            
-├─ bin                     
-│  └─ 24GameSolver.exe     
-├─ doc                     
-│  └─ Tucil1_13521030.pdf  
-├─ src                     
-│  └─ 24GameSolver.cpp     
-├─ test                    
-│  ├─ solusi_2_8_2_2.txt   
-│  ├─ solusi_3_3_3_3.txt   
-│  ├─ solusi_3_4_4_4.txt   
-│  ├─ solusi_3_8_7_9.txt   
-│  ├─ solusi_7_J_Q_K.txt   
-│  ├─ solusi_8_10_A_3.txt  
-│  ├─ solusi_A_7_4_A.txt   
-│  ├─ solusi_J_Q_K_2.txt   
-│  └─ solusi_K_7_A_Q.txt   
-└─ README.md      
+Tucil1_13521030                                          
+├─ bin                                                   
+│  └─ 24GameSolver.exe                                   
+├─ doc                                                   
+│  └─ Tucil1_K3_13521030_Jauza Lathifah Annassalafi.pdf  
+├─ src                                                   
+│  └─ 24GameSolver.cpp                                   
+├─ test                                                  
+│  ├─ solusi_2_8_2_2.txt                                 
+│  ├─ solusi_3_3_3_3.txt                                 
+│  ├─ solusi_3_4_4_4.txt                                 
+│  ├─ solusi_3_8_7_9.txt                                 
+│  ├─ solusi_7_J_Q_K.txt                                 
+│  ├─ solusi_8_10_A_3.txt                                
+│  ├─ solusi_A_7_4_A.txt                                 
+│  ├─ solusi_J_Q_K_2.txt                                 
+│  └─ solusi_K_7_A_Q.txt                                 
+└─ README.md                                             
+     
 ```
 
 
